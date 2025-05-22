@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderService.Domain", "Orde
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderService.Infrastructure", "OrderService.Infrastructure\OrderService.Infrastructure.csproj", "{BDDF816F-8B78-4156-BB89-08D7C6A29E23}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderService.Tests", "OrderService.Tests\OrderService.Tests.csproj", "{4B65180B-2691-40AF-A55C-74A5623C0077}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,5 +39,9 @@ Global
 		{BDDF816F-8B78-4156-BB89-08D7C6A29E23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDDF816F-8B78-4156-BB89-08D7C6A29E23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BDDF816F-8B78-4156-BB89-08D7C6A29E23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B65180B-2691-40AF-A55C-74A5623C0077}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B65180B-2691-40AF-A55C-74A5623C0077}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B65180B-2691-40AF-A55C-74A5623C0077}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B65180B-2691-40AF-A55C-74A5623C0077}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

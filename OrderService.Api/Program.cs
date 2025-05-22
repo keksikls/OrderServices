@@ -1,25 +1,31 @@
+using Microsoft.AspNetCore.HttpLogging;
+using OrderService.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddControllers(); 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddHttpLogging(opt =>
+{
+    opt.LoggingFields = HttpLoggingFields.RequestBody | HttpLoggingFields.RequestHeaders | HttpLoggingFields.Duration |
+                        HttpLoggingFields.RequestPath | HttpLoggingFields.ResponseBody | HttpLoggingFields.ResponseHeaders;
+});
+
+builder.AddBearerAuthentication();
+builder.AddOptions();
+builder.AddBackgroundService();
+builder.AddElastic();
+builder.AddSwagger();
+builder.AddData();
+builder.AddApplicationServices();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
-
+app.UseHttpLogging();
+app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseSwagger();
+app.UseSwaggerUI();
 app.MapControllers();
 
 app.Run();
