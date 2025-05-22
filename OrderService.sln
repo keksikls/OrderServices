@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderService.Api", "OrderService.Api\OrderService.Api.csproj", "{FCED5F21-638B-4DCD-825B-E2B18558483B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{7F1F052C-59C0-483F-8CBC-4E157D5D2CB6}"
+	ProjectSection(SolutionItems) = preProject
+		compose.yaml = compose.yaml
+		Dockerfile = Dockerfile
+		.dockerignore = .dockerignore
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderService.Application", "OrderService.Application\OrderService.Application.csproj", "{5A7F48E2-939D-490A-9C73-8D62B6E26B84}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderService.Domain", "OrderService.Domain\OrderService.Domain.csproj", "{50B3CB3B-7A41-40FE-B10D-C723B35854AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderService.Infrastructure", "OrderService.Infrastructure\OrderService.Infrastructure.csproj", "{BDDF816F-8B78-4156-BB89-08D7C6A29E23}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FCED5F21-638B-4DCD-825B-E2B18558483B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCED5F21-638B-4DCD-825B-E2B18558483B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCED5F21-638B-4DCD-825B-E2B18558483B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCED5F21-638B-4DCD-825B-E2B18558483B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A7F48E2-939D-490A-9C73-8D62B6E26B84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A7F48E2-939D-490A-9C73-8D62B6E26B84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A7F48E2-939D-490A-9C73-8D62B6E26B84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A7F48E2-939D-490A-9C73-8D62B6E26B84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50B3CB3B-7A41-40FE-B10D-C723B35854AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50B3CB3B-7A41-40FE-B10D-C723B35854AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50B3CB3B-7A41-40FE-B10D-C723B35854AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50B3CB3B-7A41-40FE-B10D-C723B35854AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDDF816F-8B78-4156-BB89-08D7C6A29E23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDDF816F-8B78-4156-BB89-08D7C6A29E23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDDF816F-8B78-4156-BB89-08D7C6A29E23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDDF816F-8B78-4156-BB89-08D7C6A29E23}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
