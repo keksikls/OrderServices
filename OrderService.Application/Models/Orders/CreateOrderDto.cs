@@ -1,4 +1,7 @@
-﻿namespace OrderService.Application.Models.Orders;
+﻿using OrderService.Application.Models.Carts;
+using OrderService.Domain.ValueObjects;
+
+namespace OrderService.Application.Models.Orders;
 
 public class CreateOrderDto
 {

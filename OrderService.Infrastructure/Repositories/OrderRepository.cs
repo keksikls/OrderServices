@@ -1,4 +1,13 @@
-﻿namespace OrderService.Infrastructure.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using OrderService.Application.Abstractions;
+using OrderService.Application.DTOs;
+using OrderService.Application.Models.Orders;
+using OrderService.Domain.Entities;
+using OrderService.Domain.Enum;
+using OrderService.Domain.Exceptions;
+using OrderService.Infrastructure.Data.DbContext;
+
+namespace OrderService.Infrastructure.Repositories;
 
 public class OrderRepository : IOrderRepository
 {

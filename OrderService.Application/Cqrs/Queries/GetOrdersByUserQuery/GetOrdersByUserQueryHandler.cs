@@ -1,4 +1,10 @@
-﻿namespace OrderService.Application.Cqrs.Queries.GetOrdersByUserQuery;
+﻿using AutoMapper;
+using MediatR;
+using OrderService.Application.Abstractions;
+using OrderService.Application.Models.Orders;
+using OrderService.Domain.Models;
+
+namespace OrderService.Application.Cqrs.Queries.GetOrdersByUserQuery;
 
 public class GetOrdersByUserQueryHandler: IRequestHandler<GetOrdersByUserQuery, PagedList<OrderDto>>
 {

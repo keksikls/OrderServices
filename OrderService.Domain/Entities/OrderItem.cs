@@ -1,4 +1,7 @@
-﻿namespace OrderService.Domain.Entities;
+﻿using OrderService.Domain.Exceptions;
+using OrderService.Domain.ValueObjects;
+
+namespace OrderService.Domain.Entities;
 
 public class OrderItem : BaseEntity
 {

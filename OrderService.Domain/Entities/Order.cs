@@ -1,4 +1,9 @@
-﻿namespace OrderService.Domain.Entities;
+﻿using OrderService.Domain.Enum;
+using OrderService.Domain.Events;
+using OrderService.Domain.Exceptions;
+using OrderService.Domain.ValueObjects;
+
+namespace OrderService.Domain.Entities;
 
 public class Order : BaseEntity
 {

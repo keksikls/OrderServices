@@ -1,4 +1,9 @@
-﻿namespace OrderService.Application.Cqrs.Queries.GetAllOrders;
+﻿using MediatR;
+using OrderService.Application.Models.Orders;
+using OrderService.Domain.Enum;
+using OrderService.Domain.Models;
+
+namespace OrderService.Application.Cqrs.Queries.GetAllOrders;
 
 public record GetAllOrdersQuery(
     int Page = 1,

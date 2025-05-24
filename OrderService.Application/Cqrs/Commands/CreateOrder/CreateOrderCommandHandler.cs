@@ -1,4 +1,9 @@
-﻿namespace OrderService.Application.Cqrs.Commands.CreateOrder;
+﻿using MediatR;
+using OrderService.Application.Abstractions;
+using OrderService.Application.DTOs;
+using OrderService.Application.Models.Orders;
+
+namespace OrderService.Application.Cqrs.Commands.CreateOrder;
 
 public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, OrderDto>
 {

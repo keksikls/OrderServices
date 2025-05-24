@@ -1,4 +1,8 @@
-﻿namespace OrderService.Application.Commands.CancelOrder;
+﻿using MediatR;
+using OrderService.Application.Abstractions;
+using OrderService.Domain.Enum;
+
+namespace OrderService.Application.Commands.CancelOrder;
 
 public class CancelOrderCommandHandler : IRequestHandler<CancelOrderCommand>
 {

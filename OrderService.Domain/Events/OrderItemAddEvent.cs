@@ -1,4 +1,6 @@
-﻿namespace OrderService.Domain.Events;
+﻿using OrderService.Domain.Interfaces;
+
+namespace OrderService.Domain.Events;
 
 public record OrderItemAddEvent(
     Guid OrderId,

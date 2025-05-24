@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.HttpLogging;
-using OrderService.Extensions;
+using OrderService.Api.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 

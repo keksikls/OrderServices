@@ -1,4 +1,6 @@
-﻿namespace OrderService.Domain.Exceptions;
+﻿using OrderService.Domain.Enum;
+
+namespace OrderService.Domain.Exceptions;
 
 public class DomainException : Exception
 {

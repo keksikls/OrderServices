@@ -1,4 +1,6 @@
-﻿namespace OrderService.Domain.Exceptions;
+﻿using System.Text.RegularExpressions;
+
+namespace OrderService.Domain.Exceptions;
 
 public static class OrderErrors
 {

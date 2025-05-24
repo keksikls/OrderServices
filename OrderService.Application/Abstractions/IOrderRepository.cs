@@ -1,4 +1,8 @@
-﻿namespace OrderService.Application.Abstractions;
+﻿using OrderService.Application.Models.Orders;
+using OrderService.Domain.Entities;
+using OrderService.Domain.Enum;
+
+namespace OrderService.Application.Abstractions;
 
 public interface IOrderRepository
 {

@@ -1,4 +1,8 @@
-﻿namespace OrderService.Infrastructure.Data.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using OrderService.Domain.Entities;
+
+namespace OrderService.Infrastructure.Data.Configuration;
 
 public class OrderConfiguration : IEntityTypeConfiguration<Order>
 {

@@ -1,4 +1,6 @@
-﻿namespace OrderService.Application.Abstractions;
+﻿using OrderService.Application.Models.Merchant;
+
+namespace OrderService.Application.Abstractions;
 
 public interface IMerchantsService
 {

@@ -1,4 +1,10 @@
-﻿namespace OrderService.Application.Cqrs.Queries.GetAllOrders;
+﻿using AutoMapper;
+using MediatR;
+using OrderService.Application.Abstractions;
+using OrderService.Application.Models.Orders;
+using OrderService.Domain.Models;
+
+namespace OrderService.Application.Cqrs.Queries.GetAllOrders;
 
 public class GetAllOrdersQueryHandler : IRequestHandler<GetAllOrdersQuery, PagedList<OrderDto>>
 {

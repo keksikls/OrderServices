@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OrderService.Application.Abstractions;
+using OrderService.Application.Models.Authentication.Const;
 
 namespace OrderService.Api.Controllers;
 

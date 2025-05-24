@@ -1,4 +1,8 @@
-﻿namespace OrderService.Application.Cqrs.Queries.GetOrdersByUserQuery;
+﻿using MediatR;
+using OrderService.Application.Models.Orders;
+using OrderService.Domain.Models;
+
+namespace OrderService.Application.Cqrs.Queries.GetOrdersByUserQuery;
 
 public record GetOrdersByUserQuery(
     Guid UserId,

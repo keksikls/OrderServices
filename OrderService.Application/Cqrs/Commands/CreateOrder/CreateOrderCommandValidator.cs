@@ -1,4 +1,6 @@
-﻿namespace OrderService.Application.Cqrs.Commands.CreateOrder;
+﻿using FluentValidation;
+
+namespace OrderService.Application.Cqrs.Commands.CreateOrder;
 
 public class CreateOrderCommandValidator : AbstractValidator<CreateOrderCommand>
 {

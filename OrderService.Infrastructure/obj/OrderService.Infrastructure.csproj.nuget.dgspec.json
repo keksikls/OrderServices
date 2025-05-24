@@ -31,7 +31,11 @@
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\keksik\\RiderProjects\\OrderService\\OrderService.Domain\\OrderService.Domain.csproj": {
+                "projectPath": "C:\\Users\\keksik\\RiderProjects\\OrderService\\OrderService.Domain\\OrderService.Domain.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -92,6 +96,10 @@
             "Microsoft.IdentityModel.Tokens": {
               "target": "Package",
               "version": "[8.3.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[8.0.10, )"
             },
             "RabbitMQ.Client": {
               "target": "Package",
@@ -218,6 +226,10 @@
             "Microsoft.IdentityModel.Tokens": {
               "target": "Package",
               "version": "[8.3.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[8.0.10, )"
             },
             "RabbitMQ.Client": {
               "target": "Package",
@@ -351,6 +363,10 @@
             "Microsoft.IdentityModel.Tokens": {
               "target": "Package",
               "version": "[8.3.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[8.0.10, )"
             },
             "RabbitMQ.Client": {
               "target": "Package",

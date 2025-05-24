@@ -1,4 +1,5 @@
 ﻿using OrderService.Domain.Entities;
+using OrderService.Domain.Interfaces;
 
 namespace OrderService.Domain.Events;
 

@@ -1,4 +1,6 @@
-﻿using OrderService.Application.Abstractions;
+﻿using Microsoft.EntityFrameworkCore;
+using OrderService.Application.Abstractions;
+using OrderService.Application.DTOs;
 using OrderService.Application.Models.Carts;
 using OrderService.Domain.Entities;
 using OrderService.Infrastructure.Data.DbContext;

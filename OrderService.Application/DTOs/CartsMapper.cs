@@ -1,4 +1,7 @@
-﻿namespace OrderService.Application.DTOs;
+﻿using OrderService.Application.Models.Carts;
+using OrderService.Domain.Entities;
+
+namespace OrderService.Application.DTOs;
 
 public static class CartsMapper
 {

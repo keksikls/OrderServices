@@ -1,4 +1,19 @@
-﻿namespace OrderService.Infrastructure.Services;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Authentication;
+using System.Security.Claims;
+using System.Text;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using OrderService.Application.Abstractions;
+using OrderService.Application.Models.Authentication;
+using OrderService.Application.Models.Authentication.Const;
+using OrderService.Domain.Entities;
+using OrderService.Domain.Exceptions;
+using OrderService.Domain.Models;
+using OrderService.Domain.Options;
+
+namespace OrderService.Infrastructure.Services;
 
 public class AuthService(IOptions<AuthOptions> authOptions,UserManager<UserEntity> userManager) : IAuthService
 {

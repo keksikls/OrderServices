@@ -1,4 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.ComponentModel.DataAnnotations;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using OrderService.Application.Commands.CancelOrder;
+using OrderService.Application.Cqrs.Commands.CreateOrder;
+using OrderService.Application.Cqrs.Queries.GetAllOrders;
+using OrderService.Application.Cqrs.Queries.GetOrderById;
+using OrderService.Application.Cqrs.Queries.GetOrdersByStatus;
+using OrderService.Application.Cqrs.Queries.GetOrdersByUserQuery;
+using OrderService.Application.Models.Orders;
+using OrderService.Domain.Enum;
+using OrderService.Domain.Models;
 
 namespace OrderService.Api.Controllers;
 

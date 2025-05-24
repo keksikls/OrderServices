@@ -1,4 +1,6 @@
-﻿namespace OrderService.Domain.Entities;
+﻿using OrderService.Domain.Interfaces;
+
+namespace OrderService.Domain.Entities;
 
 public abstract class BaseEntity
 {

@@ -1,4 +1,6 @@
-﻿namespace OrderService.Domain.ValueObjects;
+﻿using OrderService.Domain.Exceptions;
+
+namespace OrderService.Domain.ValueObjects;
 
 public sealed record OrderName
 {

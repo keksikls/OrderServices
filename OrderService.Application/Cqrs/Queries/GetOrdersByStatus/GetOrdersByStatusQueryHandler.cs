@@ -1,4 +1,9 @@
-﻿namespace OrderService.Application.Cqrs.Queries.GetOrdersByStatus;
+﻿using AutoMapper;
+using MediatR;
+using OrderService.Application.Abstractions;
+using OrderService.Application.Models.Orders;
+
+namespace OrderService.Application.Cqrs.Queries.GetOrdersByStatus;
 
 public class GetOrdersByStatusQueryHandler : IRequestHandler<GetOrdersByStatusQuery, List<OrderDto>>
 {

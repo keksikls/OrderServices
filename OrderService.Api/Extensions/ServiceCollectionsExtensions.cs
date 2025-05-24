@@ -1,4 +1,22 @@
-﻿namespace OrderService.Api.Extensions;
+﻿using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using OrderService.Application.Abstractions;
+using OrderService.Domain.Entities;
+using OrderService.Domain.Models;
+using OrderService.Domain.Options;
+using OrderService.Infrastructure.BackgroundService;
+using OrderService.Infrastructure.Data.DbContext;
+using OrderService.Infrastructure.Repositories;
+using OrderService.Infrastructure.Services;
+using Serilog;
+using Serilog.Sinks.Elasticsearch;
+
+namespace OrderService.Api.Extensions;
 
 public static class ServiceCollectionsExtensions
 {

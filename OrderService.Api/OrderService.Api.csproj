@@ -24,11 +24,18 @@
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.3.0" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.10" />
         <PackageReference Include="RabbitMQ.Client" Version="7.0.0" />
         <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
         <PackageReference Include="Serilog.Formatting.Compact" Version="3.0.0" />
         <PackageReference Include="Serilog.Sinks.Elasticsearch" Version="10.0.0" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\OrderService.Application\OrderService.Application.csproj" />
+      <ProjectReference Include="..\OrderService.Domain\OrderService.Domain.csproj" />
+      <ProjectReference Include="..\OrderService.Infrastructure\OrderService.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

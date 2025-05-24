@@ -1,7 +1,8 @@
-﻿namespace OrderService.Infrastructure.Data.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using OrderService.Domain.Entities;
 
-public class OrderItemConfiguration
-{
+namespace OrderService.Infrastructure.Data.Configuration;
     public class OrderItemConfiguration : IEntityTypeConfiguration<OrderItem>
     {
         public void Configure(EntityTypeBuilder<OrderItem> builder)
@@ -51,4 +52,3 @@ public class OrderItemConfiguration
             builder.HasIndex(oi => oi.OrderId); // Для OrderId (Guid)
         }
     }
-}

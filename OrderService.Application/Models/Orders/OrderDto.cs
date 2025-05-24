@@ -1,4 +1,6 @@
-﻿namespace OrderService.Application.Models.Orders;
+﻿using OrderService.Domain.Enum;
+
+namespace OrderService.Application.Models.Orders;
 
 public class OrderDto : CreateOrderDto
 {

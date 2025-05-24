@@ -1,4 +1,14 @@
-﻿namespace OrderService.Infrastructure.BackgroundService;
+﻿using System.Text;
+using System.Text.Json;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using OrderService.Application.Abstractions;
+using OrderService.Application.Models.Orders;
+using OrderService.Domain.Options;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
+
+namespace OrderService.Infrastructure.BackgroundService;
 
 public class CreateOrderConsumer : Microsoft.Extensions.Hosting.BackgroundService
 {

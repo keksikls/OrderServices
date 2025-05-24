@@ -1,7 +1,8 @@
-﻿namespace OrderService.Infrastructure.Data.DbContext;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using OrderService.Domain.Entities;
 
-public class OrderDbContext
-{
+namespace OrderService.Infrastructure.Data.DbContext;
     public class OrderDbContext : IdentityDbContext<UserEntity, IdentityRoleEntity, long>
     {
         public OrderDbContext(DbContextOptions<OrderDbContext> options)
@@ -24,4 +25,3 @@ public class OrderDbContext
             builder.ApplyConfigurationsFromAssembly(typeof(OrderDbContext).Assembly);
         }
     }
-}
