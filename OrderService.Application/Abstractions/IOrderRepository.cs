@@ -1,4 +1,5 @@
-﻿using OrderService.Application.Models.Orders;
+﻿using Microsoft.AspNetCore.Mvc;
+using OrderService.Application.Models.Orders;
 using OrderService.Domain.Entities;
 using OrderService.Domain.Enum;
 
@@ -6,11 +7,11 @@ namespace OrderService.Application.Abstractions;
 
 public interface IOrderRepository
 {
-    Task<OrderDto> Create(CreateOrderDto order);
+    Task<OrderDto> Create(CreateOrderDto order,CancellationToken ct);
     Task<Order?> GetByIdAsync(Guid id, CancellationToken ct);
     Task<Order?> GetByIdWithCartAsync(Guid id, CancellationToken ct);
     Task AddAsync(Order order, CancellationToken ct);
-    Task UpdateAsync(Order order, CancellationToken ct);
+    Task UpdateAsync([FromBody] OrderDto orderDto, CancellationToken ct);
     Task DeleteAsync(Guid id, CancellationToken ct);
     Task SaveChangesAsync(CancellationToken ct);
     Task<List<Order>?> GetByStatusAsync(OrderStatus status, CancellationToken ct);

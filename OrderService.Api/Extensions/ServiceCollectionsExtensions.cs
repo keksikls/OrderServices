@@ -27,13 +27,14 @@ public static class ServiceCollectionsExtensions
             option.SwaggerDoc("v1", new OpenApiInfo
             {
                 Title = "Orders Api",
-                Version = "v1"
+                Version = "v1",
+                Description = "REST API для сервиса заказов"
             });
 
             option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
                 In = ParameterLocation.Header,
-                Description = "Please enter valid tocken",
+                Description = "Please enter valid token",
                 Name = "Authorization",
                 Type = SecuritySchemeType.Http,
                 BearerFormat = "JWT",
@@ -54,6 +55,8 @@ public static class ServiceCollectionsExtensions
                     Array.Empty<string>()
                 }
             });
+
+            option.CustomSchemaIds(type => type.FullName);
         });
         return builder;
     }   
@@ -138,22 +141,43 @@ public static class ServiceCollectionsExtensions
 
     public static WebApplicationBuilder AddElastic(this WebApplicationBuilder builder)
     {
+        var elasticUrl = builder.Configuration["Elasticsearch:Url"];
+        if (string.IsNullOrEmpty(elasticUrl))
+        {
+            // Если URL не настроен, используем только логирование в консоль
+            builder.Host.UseSerilog((context, config) =>
+            {
+                config
+                    .Enrich.FromLogContext()
+                    .WriteTo.Console()
+                    .ReadFrom.Configuration(context.Configuration);
+            });
+            return builder;
+        }
+
         builder.Host.UseSerilog((context, config) =>
         {
             config
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
-                .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(context.Configuration["Elasticsearch:Url"]))
+                .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(elasticUrl))
                 {
-                    IndexFormat = $"{context.Configuration["ApplicationName"]}-logs-{DateTime.UtcNow:yyyy-MM}",
+                    IndexFormat = $"{context.Configuration["ApplicationName"] ?? "orderservice"}-logs-{DateTime.UtcNow:yyyy-MM}",
                     AutoRegisterTemplate = true,
                     NumberOfShards = 2,
                     NumberOfReplicas = 1,
-                    ModifyConnectionSettings = x => x
-                        .BasicAuthentication(
-                            context.Configuration["Elasticsearch:Username"],
-                            context.Configuration["Elasticsearch:Password"])
-                        .ServerCertificateValidationCallback((o, cert, chain, errors) => true)
+                    ModifyConnectionSettings = x =>
+                    {
+                        var username = context.Configuration["Elasticsearch:Username"];
+                        var password = context.Configuration["Elasticsearch:Password"];
+                        
+                        if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
+                        {
+                            x.BasicAuthentication(username, password);
+                        }
+                        
+                        return x.ServerCertificateValidationCallback((o, cert, chain, errors) => true);
+                    }
                 })
                 .ReadFrom.Configuration(context.Configuration);
         });

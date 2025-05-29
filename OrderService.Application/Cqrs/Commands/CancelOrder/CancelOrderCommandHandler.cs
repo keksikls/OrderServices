@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using OrderService.Application.Abstractions;
+using OrderService.Application.Cqrs.Commands.CancelOrder;
 using OrderService.Domain.Enum;
 
 namespace OrderService.Application.Commands.CancelOrder;

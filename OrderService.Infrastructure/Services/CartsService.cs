@@ -9,7 +9,7 @@ namespace OrderService.Infrastructure.Services;
 
 public class CartsService(OrderDbContext context) : ICartsService
 {
-    public async Task<CartDto> Create(CartDto cart)
+    public async Task<CartDto> Create(CartDto cart, CancellationToken ct)
     {
         var cartEntity = new CartEntity();
         var cartSaveResult = await context.Carts.AddAsync(cartEntity);

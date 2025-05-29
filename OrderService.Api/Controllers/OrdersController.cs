@@ -2,12 +2,16 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using OrderService.Application.Commands.CancelOrder;
+using OrderService.Application.Cqrs.Commands.CancelOrder;
 using OrderService.Application.Cqrs.Commands.CreateOrder;
+using OrderService.Application.Cqrs.Commands.DeleteOrder;
+using OrderService.Application.Cqrs.Commands.UpdateOrder;
 using OrderService.Application.Cqrs.Queries.GetAllOrders;
 using OrderService.Application.Cqrs.Queries.GetOrderById;
 using OrderService.Application.Cqrs.Queries.GetOrdersByStatus;
 using OrderService.Application.Cqrs.Queries.GetOrdersByUserQuery;
 using OrderService.Application.Models.Orders;
+using OrderService.Domain.Entities;
 using OrderService.Domain.Enum;
 using OrderService.Domain.Models;
 
@@ -34,7 +38,7 @@ public class OrdersController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateOrder([FromBody] CreateOrderDto dto)
     {
-        _logger.LogInformation("Creating new order for user {UserId}");
+        _logger.LogInformation("Creating new order : {OrderName}");
         _logger.LogDebug("Order details: {@OrderDto}", dto);
 
         try
@@ -86,11 +90,11 @@ public class OrdersController : ControllerBase
     }
     
     /// Отмена заказа
-    [HttpDelete("{id}")]
+    [HttpPost("{id}/cancel")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> CancelOrder(
-        Guid id,
+        [FromRoute] Guid id,
         [FromBody] CancelOrderCommand request)
     {
         _logger.LogInformation("Cancelling order {OrderId}. Reason: {Reason}", id, request.Reason);
@@ -179,6 +183,56 @@ public class OrdersController : ControllerBase
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error fetching orders list");
+            return StatusCode(500);
+        }
+    }
+
+    //Удаление заказа
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> DeleteOrder([FromRoute]Guid id,CancellationToken ct)
+    {
+        if (id == Guid.Empty || id == null)
+        {
+            return NotFound();
+        }
+        
+        _logger.LogInformation($"Method DeleteGet / get{id} for category proccess ");
+
+        try
+        {
+            await _mediator.Send(new DeleteOrderCommand(id, ct));
+            return NoContent();
+        }
+        catch (Exception e)
+        {
+            return NotFound(e.Message);
+        }
+    }
+    
+    //обновление
+    [HttpPut("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> UpdateOrder([FromRoute]Guid id,[FromBody] OrderDto orderDto,CancellationToken ct)
+    {
+        try
+        {
+            if (id != orderDto.Id)
+            {
+                return BadRequest("Id in route doesn not match");
+            }
+
+            await _mediator.Send(new UpdateOrderCommand(orderDto, ct));
+            return NoContent();
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Error updating order with id {OrderId}",id);
             return StatusCode(500);
         }
     }

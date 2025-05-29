@@ -1,6 +1,13 @@
-﻿namespace OrderService.Application.Commands.CancelOrder;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Http.HttpResults;
 
-public class CancelOrderCommandValidator
+namespace OrderService.Application.Cqrs.Commands.CancelOrder;
+
+public class CancelOrderCommandValidator : AbstractValidator<CancelOrderCommand>
 {
-    
+    public CancelOrderCommandValidator()
+    {
+        RuleFor(x=>x.OrderId).NotEmpty();
+        RuleFor(x=>x.Reason).NotEmpty();
+    }
 }

@@ -4,6 +4,7 @@ using OrderService.Application.Models.Authentication.Const;
 
 namespace OrderService.Api.Controllers;
 
+[ApiController]
 [Route("accounts")]
 public class AccountsController : ControllerBase
 {
@@ -15,6 +16,7 @@ public class AccountsController : ControllerBase
     }
     
     [HttpPost("login")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Login(UserLoginDto userLoginDto) 
     {
         var result = await _authService.Login(userLoginDto);
@@ -23,6 +25,7 @@ public class AccountsController : ControllerBase
     }
 
     [HttpPost("register")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Register(UserRegisterDto userRegisterDto)
     {
         var result = await _authService.Register(userRegisterDto);

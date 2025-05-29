@@ -22,7 +22,7 @@ public class OrderRepository : IOrderRepository
         _cartsService = cartsService;
     }
 
-    public async Task<OrderDto> Create(CreateOrderDto order)
+    public async Task<OrderDto> Create(CreateOrderDto order,CancellationToken ct)
     {
         var orderId = Guid.NewGuid(); // Генерация ID внутри метода
     
@@ -39,7 +39,7 @@ public class OrderRepository : IOrderRepository
             throw new ArgumentNullException();
         }
 
-        var cart = await _cartsService.Create(order.Cart);
+        var cart = await _cartsService.Create(order.Cart,ct);
 
         var entity = new Order
         {
@@ -50,7 +50,7 @@ public class OrderRepository : IOrderRepository
         };
 
         var orderSaveResult = await _orders.AddAsync(entity);
-        await _orderDbContext.SaveChangesAsync();
+        await _orderDbContext.SaveChangesAsync(ct);
 
         var orderEnityResult = orderSaveResult.Entity;
 
@@ -75,17 +75,25 @@ public class OrderRepository : IOrderRepository
         await _orders.AddAsync(order, ct);
     }
 
-    public Task UpdateAsync(Order order, CancellationToken ct)
+    public async Task UpdateAsync(OrderDto orderDto, CancellationToken ct)
     {
-        _orderDbContext.Entry(order).State = EntityState.Modified;
-        return Task.CompletedTask;
+        _orderDbContext.Update(orderDto);
+        _orderDbContext.Entry(orderDto).State = EntityState.Modified;
+
+         if (orderDto != null)
+         {
+             await _orderDbContext.SaveChangesAsync(ct);
+         }
     }
 
     public async Task DeleteAsync(Guid id, CancellationToken ct)
     {
         var order = await GetByIdAsync(id, ct);
         if (order != null)
+        {
             _orders.Remove(order);
+            _orderDbContext.SaveChangesAsync(ct);
+        }
     }
 
     public async Task SaveChangesAsync(CancellationToken ct)

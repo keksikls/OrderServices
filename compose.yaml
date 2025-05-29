@@ -1,7 +1,85 @@
-﻿services:
-  orderservice.api:
-    image: orderservice.api
+﻿version: '3.8'
+
+services:
+  order-service:
     build:
       context: .
       dockerfile: OrderService.Api/Dockerfile
+    ports:
+      - "8081:80"
+    depends_on:
+      - postgres
+      - rabbitmq
+      - elasticsearch
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
 
+      # Connection string
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=OrdersService;Username=postgres;Password=postgres123
+
+      # Authentication / JWT
+      - Authentication__TokenPrivateKey=123456789012345678901234567890ac
+      - Authentication__ExpireIntervalMinutes=600
+
+      # RabbitMQ config
+      - RabbitMQ__HostName=rabbitmq
+      - RabbitMQ__Port=5672
+      - RabbitMQ__UserName=guest
+      - RabbitMQ__Password=guest
+      - RabbitMQ__VirtualHost=/
+      - RabbitMQ__CreateOrderQueueName=CreateOrderQueue
+
+      # Elasticsearch config
+      - Elasticsearch__Url=http://elasticsearch:9200
+      - Elasticsearch__Username=elastic
+      - Elasticsearch__Password=yourpassword
+
+      # Custom application name
+      - ApplicationName=orderservice
+
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_PASSWORD: postgres123
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "status"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.13.4
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ports:
+      - "9200:9200"
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.13.4
+    container_name: kibana
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+
+volumes:
+  postgres_data:
+  rabbitmq_data:
+  es_data:
