@@ -11,6 +11,7 @@ using OrderService.Domain.Models;
 using OrderService.Domain.Options;
 using OrderService.Infrastructure.BackgroundService;
 using OrderService.Infrastructure.Data.DbContext;
+using OrderService.Infrastructure.MessageBus;
 using OrderService.Infrastructure.Repositories;
 using OrderService.Infrastructure.Services;
 using Serilog;
@@ -128,6 +129,9 @@ public static class ServiceCollectionsExtensions
     {
         builder.Services.Configure<AuthOptions>(builder.Configuration.GetSection("Authentication"));
         builder.Services.Configure<RabbitMqOptions>(builder.Configuration.GetSection("RabbitMQ"));
+        builder.Services.AddScoped<OrderEventsPublisher>();
+        builder.Services.AddMediatR(cfg =>
+            cfg.RegisterServicesFromAssembly(typeof(ServiceCollectionsExtensions).Assembly));
 
         return builder;
     }

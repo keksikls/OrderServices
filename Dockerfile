@@ -33,4 +33,4 @@ ENV ASPNETCORE_URLS=http://+:80
 EXPOSE 80
 
 # Запускаем приложение
-ENTRYPOINT ["dotnet", "OrderService.Api.dll"]d
+ENTRYPOINT ["dotnet", "OrderService.Api.dll"]

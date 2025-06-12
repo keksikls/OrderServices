@@ -32,7 +32,7 @@ services:
       # Elasticsearch config
       - Elasticsearch__Url=http://elasticsearch:9200
       - Elasticsearch__Username=elastic
-      - Elasticsearch__Password=yourpassword
+      - Elasticsearch__Password=123
 
       # Custom application name
       - ApplicationName=orderservice

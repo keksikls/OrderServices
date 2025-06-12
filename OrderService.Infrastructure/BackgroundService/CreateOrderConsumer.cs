@@ -11,7 +11,7 @@ using RabbitMQ.Client.Events;
 
 namespace OrderService.Infrastructure.BackgroundService;
 
-public class CreateOrderConsumer : Microsoft.Extensions.Hosting.BackgroundService, IDisposable
+public class CreateOrderConsumer : Microsoft.Extensions.Hosting.BackgroundService,IDisposable
 {
     private readonly RabbitMqOptions _rabbitMqOptions;
     private readonly IChannel _channel;
@@ -110,14 +110,14 @@ public class CreateOrderConsumer : Microsoft.Extensions.Hosting.BackgroundServic
         await _channel.BasicConsumeAsync(
             _rabbitMqOptions.CreateOrderQueueName,
             autoAck: false,
-            consumer,
+            consumer: consumer,
             cancellationToken: stoppingToken);
     }
 
     public override void Dispose()
     {
-        _channel?.Dispose();
-        _connection?.Dispose();
+        _channel?.CloseAsync();
+        _connection?.CloseAsync();
         base.Dispose();
         
         _logger.LogInformation("CreateOrderConsumer disposed");

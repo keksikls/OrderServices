@@ -6,28 +6,31 @@ using OrderService.Domain.Entities;
 using OrderService.Domain.Enum;
 using OrderService.Domain.Exceptions;
 using OrderService.Infrastructure.Data.DbContext;
+using OrderService.Infrastructure.Services;
 
 namespace OrderService.Infrastructure.Repositories;
 
 public class OrderRepository : IOrderRepository
 {
-    public readonly OrderDbContext _orderDbContext;
-    public readonly DbSet<Order> _orders;
-    public readonly ICartsService _cartsService;
+    private readonly OrderDbContext _orderDbContext;
+    private readonly DbSet<Order> _orders;
+    private readonly ICartsService _cartsService;
 
-    public OrderRepository(OrderDbContext orderDbContext, ICartsService cartsService)
+    public OrderRepository(
+        OrderDbContext orderDbContext,
+        ICartsService cartsService)
     {
         _orderDbContext = orderDbContext;
         _orders = orderDbContext.Orders;
         _cartsService = cartsService;
     }
 
-    public async Task<OrderDto> Create(CreateOrderDto order,CancellationToken ct)
+    public async Task<OrderDto> Create(CreateOrderDto order, CancellationToken ct)
     {
-        var orderId = Guid.NewGuid(); // Генерация ID внутри метода
+        var orderId = Guid.NewGuid();
     
         var orderByOrderNumber = await _orders.FirstOrDefaultAsync(x =>
-            x.Id == orderId && x.MerchantId == order.MerchantId);
+            x.Id == orderId && x.MerchantId == order.MerchantId, ct);
 
         if (orderByOrderNumber != null)
         {
@@ -36,10 +39,10 @@ public class OrderRepository : IOrderRepository
 
         if (order.Cart == null)
         {
-            throw new ArgumentNullException();
+            throw new ArgumentNullException(nameof(order.Cart));
         }
 
-        var cart = await _cartsService.Create(order.Cart,ct);
+        var cart = await _cartsService.Create(order.Cart, ct);
 
         var entity = new Order
         {
@@ -49,12 +52,11 @@ public class OrderRepository : IOrderRepository
             CartId = cart.Id
         };
 
-        var orderSaveResult = await _orders.AddAsync(entity);
+        var orderSaveResult = await _orders.AddAsync(entity, ct);
         await _orderDbContext.SaveChangesAsync(ct);
+        
 
-        var orderEnityResult = orderSaveResult.Entity;
-
-        return orderEnityResult.ToDto();
+        return orderSaveResult.Entity.ToDto();
     }
 
     public async Task<Order?> GetByIdAsync(Guid id, CancellationToken ct)
@@ -98,7 +100,16 @@ public class OrderRepository : IOrderRepository
 
     public async Task SaveChangesAsync(CancellationToken ct)
     {
+        // Получаем все сущности с событиями до сохранения
+        var entitiesWithEvents = _orderDbContext.ChangeTracker
+            .Entries<BaseEntity>()
+            .Select(e => e.Entity)
+            .Where(e => e.DomainEvents?.Any() == true)
+            .ToList();
+
+        // Сначала сохраняем изменения
         await _orderDbContext.SaveChangesAsync(ct);
+        
     }
 
     public async Task<List<Order>> GetByStatusAsync(OrderStatus status, CancellationToken ct)

@@ -7,6 +7,8 @@ public sealed record OrderName
     public string? Value { get; }
     
     private OrderName(string? value) => Value = value;
+    
+    public OrderName() { }
 
     public static OrderName Create(string? value)
     {
